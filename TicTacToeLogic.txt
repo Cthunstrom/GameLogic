@@ -1,0 +1,45 @@
+    /**
+     * Checks if the game has ended either because a player has won, or if the game has ended as a tie.
+     * If game hasn't ended the return string has to be "None",
+     * If the game ends as tie, the return string has to be "Tie",
+     * If the game ends because there's a winner, it should return "X wins" or "O wins" accordingly
+     * @param grid 2D array of characters representing the game board
+     * @return String indicating the outcome of the game: "X wins" or "O wins" or "Tie" or "None"
+     */
+    public String checkGameWinner(char [][]grid){
+        String result = "None";
+
+        for(int i = 0; i < grid.length; i++){
+            char letterA = grid[i][0];
+            for(int j = 0; j < grid.length; j++){
+                char letterB = grid[i][j];
+                if(letterA != letterB) break;
+                if(letterA == letterB && j == 2 && letterA != '-' && letterB != '-') result = Character.toUpperCase(grid[i][j]) + " wins";
+            }
+        }
+
+        for(int j = 0; j < grid.length; j++){
+            char letterA = grid[0][j];
+            for(int i = 0; i < grid.length; i++){
+                char letterB = grid[i][j];
+                if(letterA != letterB) break;
+                if(letterA == letterB && i == 2 && letterA != '-' && letterB != '-') result = Character.toUpperCase(grid[i][j]) + " wins";
+            }
+        }
+
+        if(grid[0][2] == grid[1][1] && grid[1][1] == grid[2][0] && grid[0][2] != '-' && grid[1][1] != '-' && grid[2][0] != '-') result = Character.toUpperCase(grid[1][1]) + " wins";
+        if(grid[0][0] == grid[1][1] && grid[1][1] == grid[2][2] && grid[0][0] != '-' && grid[1][1] != '-' && grid[2][2] != '-') result = Character.toUpperCase(grid[1][1]) + " wins";
+
+        boolean tieCheck = true;
+        for(int i = 0; i < grid.length; i++){
+            for(int j = 0; j < grid.length; j++){
+                if (grid[i][j] == '-') {
+                    tieCheck = false;
+                    break;
+                }
+            }
+        }
+
+        if(tieCheck) result = "Tie";
+        return result;
+    }
